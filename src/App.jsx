@@ -2,6 +2,8 @@ import { Canvas } from "@react-three/fiber";
 import styles from "./app.module.scss";
 import Experience from "../components/Experience/Experience";
 import { KeyboardControls } from "@react-three/drei";
+import { Suspense } from "react";
+import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
 
 const keyboardMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -21,7 +23,9 @@ function App() {
             touchAction: "none",
           }}
         >
-          <Experience />
+          <Suspense fallback={<LoadingScreen />}>
+            <Experience />
+          </Suspense>
         </Canvas>
       </KeyboardControls>
     </>
