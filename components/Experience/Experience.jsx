@@ -18,7 +18,7 @@ export default function Experience() {
       enablePan={false}
       maxPolarAngle={Math.PI / 2 - 0.05}
       /> */}
-      <Physics debug>
+      <Physics>
         <CrabController />
         <Beach />
       </Physics>
