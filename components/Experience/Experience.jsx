@@ -13,7 +13,8 @@ export default function Experience() {
   return (
     <>
       {/* <ambientLight intensity={3} /> */}
-      <Environment map={envMap} background />
+      <Environment map={envMap} background={true} />
+      {/* <fog attach="fog" color="#AEB3AC" near={2} far={15} /> */}
       <OrbitControls
         enableZoom={false}
         enablePan={false}
