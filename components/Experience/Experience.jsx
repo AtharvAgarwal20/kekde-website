@@ -1,5 +1,4 @@
-import { Environment, OrbitControls, useEnvironment } from "@react-three/drei";
-import { Crab } from "../Crab/Crab";
+import { Environment, useEnvironment } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 import { Beach } from "../Beach/Beach";
 import CrabController from "../Crab/CrabController";
@@ -10,14 +9,7 @@ export default function Experience() {
   });
   return (
     <>
-      {/* <ambientLight intensity={3} /> */}
       <Environment map={envMap} background={true} />
-      {/* <fog attach="fog" color="#AEB3AC" near={2} far={15} /> */}
-      {/* <OrbitControls
-      enableZoom={false}
-      enablePan={false}
-      maxPolarAngle={Math.PI / 2 - 0.05}
-      /> */}
       <Physics>
         <CrabController />
         <Beach />
