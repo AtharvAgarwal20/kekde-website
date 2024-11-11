@@ -1,10 +1,30 @@
 import React, { useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
+import { useGSAP } from "@gsap/react";
+
+import gsap from "gsap";
+
+import { Observer } from "gsap/all";
+
+gsap.registerPlugin(Observer);
 
 export function Crab(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF("/Models/animated_crab.glb");
   const { actions } = useAnimations(animations, group);
+
+  useGSAP(
+    () => {
+      Observer.create({
+        target: window, // can be any element (selector text is fine)
+        type: "scroll", // comma-delimited list of what to listen for
+        onChangeY: () => {
+          console.log("Scroll");
+        },
+      });
+    },
+    { dependencies: [] }
+  );
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Sketchfab_Scene">
