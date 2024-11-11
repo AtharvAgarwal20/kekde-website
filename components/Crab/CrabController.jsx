@@ -1,6 +1,6 @@
-import { CapsuleCollider, RigidBody, useRapier } from "@react-three/rapier";
+import { CapsuleCollider, RigidBody } from "@react-three/rapier";
 import { Crab } from "./Crab";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MathUtils, Vector3 } from "three";
 import { useFrame } from "@react-three/fiber";
 import { useKeyboardControls } from "@react-three/drei";
@@ -25,8 +25,27 @@ export default function CrabController() {
   const cameraLookAt = useRef(new Vector3());
 
   const [subscribeKeys, getKeys] = useKeyboardControls();
+  const isClicking = useRef(false);
 
-  useFrame(({ camera }) => {
+  useEffect(() => {
+    const onMouseDown = (e) => {
+      isClicking.current = true;
+    };
+
+    const onMouseUp = (e) => {
+      isClicking.current = false;
+    };
+
+    document.addEventListener("mousedown", onMouseDown);
+    document.addEventListener("mouseup", onMouseUp);
+
+    return () => {
+      document.removeEventListener("mousedown", onMouseDown);
+      document.removeEventListener("mouseup", onMouseUp);
+    };
+  }, []);
+
+  useFrame(({ camera, mouse }) => {
     if (rb.current) {
       const { forward, backward, left, right, run, jump } = getKeys();
 
@@ -35,6 +54,11 @@ export default function CrabController() {
       // Calculate movement direction
       let impulseX = 0;
       let impulseZ = 0;
+
+      if (isClicking.current) {
+        impulseX -= mouse.x * RUN_SPEED;
+        impulseZ += mouse.y * RUN_SPEED;
+      }
 
       if (forward) impulseZ = 1 * (run ? RUN_SPEED : WALK_SPEED);
       if (backward) impulseZ = -1 * (run ? RUN_SPEED : WALK_SPEED);
