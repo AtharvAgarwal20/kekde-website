@@ -16,7 +16,11 @@ function App() {
   return (
     <>
       <KeyboardControls map={keyboardMap}>
-        <Canvas>
+        <Canvas
+          style={{
+            touchAction: "none",
+          }}
+        >
           <Experience />
         </Canvas>
       </KeyboardControls>
