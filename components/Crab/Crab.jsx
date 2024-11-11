@@ -1,12 +1,23 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 
-export function Crab(props) {
+export function Crab({ animation, ...props }) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF("/Models/animated_crab.glb");
-  const { actions } = useAnimations(animations, group);
+  const { actions, names } = useAnimations(animations, group);
+
+  useEffect(() => {
+    if (animation === "idle") {
+      actions[names[1]].reset().fadeIn(0.5).stop();
+      actions[names[2]].reset().fadeIn(0.5).play();
+    } else if (animation === "walk") {
+      actions[names[2]].reset().fadeIn(0.5).stop();
+      actions[names[1]].reset().fadeIn(0.5).play();
+    }
+  }, [animation]);
+
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props} dispose={null} rotation={[0, Math.PI / 2, 0]}>
       <group name="Sketchfab_Scene">
         <group
           name="Sketchfab_model"

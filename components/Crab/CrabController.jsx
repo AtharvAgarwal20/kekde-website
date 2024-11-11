@@ -1,6 +1,6 @@
 import { CapsuleCollider, RigidBody, useRapier } from "@react-three/rapier";
 import { Crab } from "./Crab";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { MathUtils, Vector3 } from "three";
 import { useFrame } from "@react-three/fiber";
 import { useKeyboardControls } from "@react-three/drei";
@@ -10,6 +10,8 @@ export default function CrabController() {
   const RUN_SPEED = 3.2;
   const ROTATION_SPEED = 0.008;
   const JUMP_FORCE = 3;
+
+  const [animation, setAnimation] = useState("idle");
 
   const rb = useRef();
   const container = useRef();
@@ -42,6 +44,12 @@ export default function CrabController() {
 
       if (impulseX !== 0) {
         rotationTarget.current += ROTATION_SPEED * impulseX;
+      }
+
+      if (impulseX !== 0 || impulseZ !== 0) {
+        setAnimation("walk");
+      } else {
+        setAnimation("idle");
       }
 
       // Apply movement impulse
@@ -77,9 +85,9 @@ export default function CrabController() {
       <RigidBody colliders={false} lockRotations ref={rb} position={[0, -1, 0]}>
         <group ref={container}>
           <group ref={cameraTarget} position={[0, 0, 1.5]} />
-          <group ref={cameraPosition} position={[0, 4, -4]} />
+          <group ref={cameraPosition} position={[1.5, 3, -4]} />
           <group ref={character}>
-            <Crab />
+            <Crab animation={animation} />
           </group>
           <CapsuleCollider args={[0.5, 0.5]} position={[0, 1, 0]} />
         </group>
