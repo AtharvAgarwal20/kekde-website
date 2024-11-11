@@ -6,8 +6,8 @@ import { useFrame } from "@react-three/fiber";
 import { useKeyboardControls } from "@react-three/drei";
 
 export default function CrabController() {
-  const WALK_SPEED = 0.8;
-  const RUN_SPEED = 1.6;
+  const WALK_SPEED = 1.6;
+  const RUN_SPEED = 3.2;
   const JUMP_FORCE = 0.5;
 
   const rb = useRef();
