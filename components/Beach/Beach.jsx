@@ -7,7 +7,7 @@ import { useGLTF } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
 
 export function Beach(props) {
-  const { nodes, materials } = useGLTF("/Models/island_scaled_final.glb");
+  const { nodes, materials } = useGLTF("/Models/island_final_optimized.glb");
   return (
     <group {...props} dispose={null}>
       <RigidBody type="fixed" colliders="trimesh">
@@ -90,4 +90,4 @@ export function Beach(props) {
   );
 }
 
-useGLTF.preload("/Models/island_scaled_final.glb");
+useGLTF.preload("/Models/island_final_optimized.glb");

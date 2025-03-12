@@ -3,7 +3,9 @@ import { useGLTF, useAnimations } from "@react-three/drei";
 
 export function Crab({ animation, ...props }) {
   const group = useRef();
-  const { nodes, materials, animations } = useGLTF("/Models/animated_crab.glb");
+  const { nodes, materials, animations } = useGLTF(
+    "/Models/crab_optimized.glb"
+  );
   const { actions, names } = useAnimations(animations, group);
 
   useEffect(() => {
@@ -53,4 +55,4 @@ export function Crab({ animation, ...props }) {
   );
 }
 
-useGLTF.preload("/Models/animated_crab.glb");
+useGLTF.preload("/Models/crab_optimized.glb");
