@@ -6,9 +6,9 @@ import { useFrame } from "@react-three/fiber";
 import { useKeyboardControls } from "@react-three/drei";
 
 export default function CrabController() {
-  const WALK_SPEED = 1.6;
-  const RUN_SPEED = 3.2;
-  const ROTATION_SPEED = 0.008;
+  const WALK_SPEED = 4;
+  const RUN_SPEED = WALK_SPEED * 2;
+  const ROTATION_SPEED = 0.002;
   const JUMP_FORCE = 3;
 
   const [animation, setAnimation] = useState("idle");
@@ -109,11 +109,11 @@ export default function CrabController() {
   }, -1);
 
   return (
-    <group position={[0, 5, -1]}>
+    <group position={[39, 5, 0]} scale={2}>
       <RigidBody colliders={false} lockRotations ref={rb} position={[0, -1, 0]}>
         <group ref={container}>
           <group ref={cameraTarget} position={[0, 0, 1.5]} />
-          <group ref={cameraPosition} position={[1.5, 3, -4]} />
+          <group ref={cameraPosition} position={[0, 3, -4]} />
           <group ref={character}>
             <Crab animation={animation} />
           </group>
