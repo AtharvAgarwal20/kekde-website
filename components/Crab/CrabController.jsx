@@ -109,7 +109,7 @@ export default function CrabController() {
   }, -1);
 
   return (
-    <group position={[39, 5, 0]} scale={2}>
+    <group position={[27.75, 5, 0]} scale={2}>
       <RigidBody colliders={false} lockRotations ref={rb} position={[0, -1, 0]}>
         <group ref={container}>
           <group ref={cameraTarget} position={[0, 0, 1.5]} />
