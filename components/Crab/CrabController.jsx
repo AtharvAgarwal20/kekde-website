@@ -46,8 +46,10 @@ export default function CarController() {
   const getForwardDirection = (rotation) => {
     const direction = new Vector3(0, 0, 1);
 
-    return direction.applyQuaternion(rotation).normalize();
+    return direction.applyQuaternion(rotation);
   };
+
+  const carDir = new Vector3(0, 0, 0);
 
   useFrame(({ camera, mouse }, delta) => {
     const { forward, backward, left, right, jump, run } = getKeys();
@@ -58,20 +60,19 @@ export default function CarController() {
     const torqueImpulse = { x: 0, y: 0, z: 0 };
     const torqueImpulseStrength = 5 * delta;
 
-    if (forward) {
-      const forwardDir = getForwardDirection(body.current.rotation());
+    carDir.x = getForwardDirection(body.current.rotation()).x;
+    carDir.z = getForwardDirection(body.current.rotation()).z;
 
-      impulse.x += impulseStrength * forwardDir.x;
-      impulse.y += impulseStrength * forwardDir.y;
-      impulse.z += impulseStrength * forwardDir.z;
+    const carDirection = carDir.normalize();
+
+    if (forward) {
+      impulse.x += impulseStrength * carDirection.x;
+      impulse.z += impulseStrength * carDirection.z;
     }
 
     if (backward) {
-      const forwardDir = getForwardDirection(body.current.rotation());
-
-      impulse.x -= impulseStrength * forwardDir.x;
-      impulse.y -= impulseStrength * forwardDir.y;
-      impulse.z -= impulseStrength * forwardDir.z;
+      impulse.x -= impulseStrength * carDirection.x;
+      impulse.z -= impulseStrength * carDirection.z;
     }
 
     if (left && forward) {
@@ -101,7 +102,8 @@ export default function CarController() {
 
     const cameraPosition = new Vector3();
     cameraPosition.copy(bodyPosition);
-    cameraPosition.z -= 6;
+    cameraPosition.z -= carDirection.z * 4;
+    cameraPosition.x -= carDirection.x * 4;
     cameraPosition.y += 4;
 
     const cameraTarget = new Vector3();
