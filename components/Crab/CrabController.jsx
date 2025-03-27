@@ -55,10 +55,10 @@ export default function CarController() {
     const { forward, backward, left, right, jump, run } = getKeys();
 
     const impulse = { x: 0, y: 0, z: 0 };
-    const impulseStrength = run ? 150 * delta : 100 * delta;
+    const impulseStrength = run ? 250 * delta : 150 * delta;
 
     const torqueImpulse = { x: 0, y: 0, z: 0 };
-    const torqueImpulseStrength = 5 * delta;
+    const torqueImpulseStrength = 10 * delta;
 
     carDir.x = getForwardDirection(body.current.rotation()).x;
     carDir.z = getForwardDirection(body.current.rotation()).z;
@@ -121,7 +121,7 @@ export default function CarController() {
     <group position={[27.75, 5, 0]} scale={1}>
       <RigidBody
         canSleep={false}
-        colliders="hull"
+        colliders="cuboid"
         // lockRotations
         restitution={0.1}
         friction={1}
