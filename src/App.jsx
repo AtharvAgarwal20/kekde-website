@@ -1,5 +1,4 @@
 import { Canvas } from "@react-three/fiber";
-import styles from "./app.module.scss";
 import Experience from "../components/Experience/Experience";
 import { KeyboardControls } from "@react-three/drei";
 import { Suspense } from "react";

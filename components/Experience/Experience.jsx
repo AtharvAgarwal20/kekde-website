@@ -1,7 +1,7 @@
 import { Environment, useEnvironment } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 import { Beach } from "../Beach/Beach";
-import CrabController from "../Crab/CrabController";
+import CarController from "../Crab/CrabController";
 import EnergyOrb from "../EnergyOrb/EnergyOrb";
 
 export default function Experience() {
@@ -15,7 +15,7 @@ export default function Experience() {
         <EnergyOrb color="orange" lightIntensity={3} />
       </group>
       <Physics>
-        <CrabController />
+        <CarController />
         <Beach />
       </Physics>
     </>
